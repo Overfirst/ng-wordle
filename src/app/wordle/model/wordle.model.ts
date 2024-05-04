@@ -22,7 +22,7 @@ export type WordleWord = WordleLetter[];
 
 /* Интерфейс для словаря */
 export interface WordleWordCollection {
-  [key: number]: WordleWord[];
+  [key: number]: string[];
 }
 
 /* Тип для клавиатуры (массив из массивов строк клавиатуры) */

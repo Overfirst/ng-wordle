@@ -33,7 +33,7 @@ export class WordleStateService {
 
   /* Загаданное слово */
   private readonly secretWord$$: BehaviorSubject<string> =
-    new BehaviorSubject<string>('абвгд');
+    new BehaviorSubject<string>('');
 
   public readonly secretWord$: Observable<string> =
     this.secretWord$$.asObservable();

@@ -1,8 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { filter, fromEvent, map, merge, Observable, of, tap } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import random from 'random';
 import { WordleStateService } from './wordle-state.service';
 import { WordleLetter } from '../model/wordle.model';
+import { WORDLE_WORD_COLLECTION } from '../const/wordle-collection.const';
 
 @Injectable()
 export class WordleService {
@@ -31,6 +33,19 @@ export class WordleService {
     }
   }
 
+  private reset(): void {
+    this.selectSecretWord();
+  }
+
+  private selectSecretWord(): void {
+    const words: string[] = WORDLE_WORD_COLLECTION[this.wordleState.wordLength];
+    const randomWordIndex: number = random.int(0, words.length - 1);
+
+    this.wordleState.secretWord = words[randomWordIndex];
+
+    console.log(this.wordleState.secretWord);
+  }
+
   private listenKeyboard(): Observable<unknown> {
     return fromEvent<KeyboardEvent>(this.document, 'keydown').pipe(
       map((event: KeyboardEvent) => event.key),
@@ -47,7 +62,7 @@ export class WordleService {
   }
 
   private listenWordLengthChanges(): Observable<unknown> {
-    return of(null);
+    return this.wordleState.wordLength$.pipe(tap(() => this.reset()));
   }
 
   private handleBackspace(): void {
