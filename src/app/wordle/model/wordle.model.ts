@@ -27,3 +27,12 @@ export interface WordleWordCollection {
 
 /* Тип для клавиатуры (массив из массивов строк клавиатуры) */
 export type WordleKeyboard = string[][];
+
+/*
+  Состояние игры:
+    - waiting: ожидание (по умолчанию),
+    - playing: играем,
+    - win: победа,
+    - lose: поражение
+*/
+export type WordleGameState = 'waiting' | 'playing' | 'win' | 'lose';
