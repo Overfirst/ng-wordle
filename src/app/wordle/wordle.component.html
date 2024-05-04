@@ -1,17 +1,42 @@
-<div class="wordle">
+<div
+  class="wordle"
+  *ngIf="{
+    wordLength: (wordLength$ | async) ?? 0,
+    inputWord: (inputWord$ | async) ?? [],
+    wordRows: (wordRows$ | async) ?? []
+  } as params"
+>
   <div class="wordle-title">Wordle</div>
 
   <div class="wordle-cells">
-    <div class="wordle-row">
-      <div class="wordle-cell">
-        <span>а</span>
+    <div
+      class="wordle-row"
+      *ngFor="let row of attemptsCount | arrayFromNumber; let rowIndex = index"
+    >
+      <div
+        *ngFor="
+          let letter of params.wordLength | arrayFromNumber;
+          let letterIndex = index
+        "
+        class="wordle-cell"
+        [class.filled]="rowIndex | wordleExtractLetter: letterIndex"
+      >
+        <span>
+          {{ rowIndex | wordleExtractLetter: letterIndex }}
+        </span>
       </div>
     </div>
   </div>
 
   <div class="wordle-keyboard">
-    <div class="wordle-row">
-      <div class="wordle-key"></div>
+    <div class="wordle-row" *ngFor="let row of WORDLE_KEYBOARD">
+      <div
+        class="wordle-key"
+        [class.wide]="key === 'Backspace' || key === 'Enter'"
+        *ngFor="let key of row"
+      >
+        {{ key === "Backspace" ? "⌫" : key }}
+      </div>
     </div>
   </div>
 </div>
