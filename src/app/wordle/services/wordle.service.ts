@@ -34,6 +34,9 @@ export class WordleService {
   }
 
   private reset(): void {
+    this.wordleState.gameState = 'waiting';
+    this.wordleState.wordRows = [];
+    this.wordleState.inputWord = [];
     this.selectSecretWord();
   }
 
