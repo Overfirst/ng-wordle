@@ -92,6 +92,7 @@ export class WordleStateService {
   }
 
   public destroy(): void {
+    this.gameState$$.complete();
     this.wordLength$$.complete();
     this.secretWord$$.complete();
     this.inputWord$$.complete();
