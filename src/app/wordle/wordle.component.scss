@@ -175,6 +175,25 @@ $wordle-cell-font-size-small: 20px;
     font-size: $wordle-cell-font-size-small;
     margin: $wordle-cell-margin-small;
   }
+
+  &.cursor::after {
+    content: "|";
+    position: absolute;
+    animation: cell-cursor linear infinite;
+    animation-duration: 1s;
+  }
+}
+
+@keyframes cell-cursor {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes cell-filled {

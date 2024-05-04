@@ -1,12 +1,13 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap, merge } from 'rxjs';
 
-import { WordleKeyboard, WordleWord } from './model/wordle.model';
+import { WordleKeyboard } from './model/wordle.model';
 import { WordleStateService } from './services/wordle-state.service';
 import { WordleService } from './services/wordle.service';
 import { WORDLE_KEYBOARD } from './const/wordle-keyboard.const';
@@ -25,14 +26,6 @@ export class WordleComponent implements OnInit, OnDestroy {
   public readonly wordLength$: Observable<number> =
     this.wordleState.wordLength$;
 
-  /* Введённые слова */
-  public readonly inputWord$: Observable<WordleWord> =
-    this.wordleState.inputWord$;
-
-  /* Вводимое слово */
-  public readonly wordRows$: Observable<WordleWord[]> =
-    this.wordleState.wordRows$;
-
   /* Количество попыток */
   public readonly attemptsCount: number = this.wordleState.attemptsCount;
 
@@ -42,10 +35,16 @@ export class WordleComponent implements OnInit, OnDestroy {
   constructor(
     private readonly wordleState: WordleStateService,
     private readonly wordle: WordleService,
+    private readonly cdr: ChangeDetectorRef,
   ) {}
 
   public ngOnInit(): void {
-    this.wordle.initSubscriptions().pipe(untilDestroyed(this)).subscribe();
+    merge(
+      this.wordle.initSubscriptions(),
+      this.wordleState.inputWord$.pipe(tap(() => this.cdr.markForCheck())),
+    )
+      .pipe(untilDestroyed(this))
+      .subscribe();
   }
 
   public handleKey(key: string): void {
