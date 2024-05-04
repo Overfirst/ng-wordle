@@ -10,12 +10,10 @@ export class WordleService {
     @Inject(DOCUMENT)
     private readonly document: Document,
     private readonly wordleState: WordleStateService,
-  ) {
-    this.initSubscriptions();
-  }
+  ) {}
 
-  private initSubscriptions(): void {
-    merge(this.listenKeyboard(), this.listenWordLengthChanges()).subscribe();
+  public initSubscriptions(): Observable<unknown> {
+    return merge(this.listenKeyboard(), this.listenWordLengthChanges());
   }
 
   private listenKeyboard(): Observable<unknown> {

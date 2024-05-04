@@ -1,9 +1,9 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WordleWord } from '../model/wordle.model';
 
 @Injectable()
-export class WordleStateService implements OnDestroy {
+export class WordleStateService {
   /* Количество попыток */
   public readonly attemptsCount: number = 6;
 
@@ -76,7 +76,7 @@ export class WordleStateService implements OnDestroy {
     this.wordRows$$.next(rows);
   }
 
-  public ngOnDestroy(): void {
+  public destroy(): void {
     this.wordLength$$.complete();
     this.secretWord$$.complete();
     this.inputWord$$.complete();
