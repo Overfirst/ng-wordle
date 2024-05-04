@@ -13,9 +13,30 @@
         "
         class="wordle-cell"
         [class.cursor]="rowIndex | wordleCursorInCell: letterIndex"
-        [class.filled]="rowIndex | wordleCellIsFilled: letterIndex"
+        [class.flipped]="rowIndex | wordleRowCanFlip"
       >
-        {{ (rowIndex | wordleExtractWord)?.[letterIndex]?.letter }}
+        <div
+          class="wordle-cell-content"
+          [class.filled]="rowIndex | wordleCellIsFilled: letterIndex"
+          [style.animation-delay]="
+            (rowIndex | wordleRowCanFlip) ? 200 * letterIndex + 'ms' : '0ms'
+          "
+        >
+          <div class="wordle-cell-front">
+            {{ (rowIndex | wordleExtractWord)?.[letterIndex]?.letter }}
+          </div>
+
+          <div
+            class="wordle-cell-back"
+            [class.valid]="
+              letterIndex % 2 === 0 && letterIndex !== wordLength - 1
+            "
+            [class.invalid]="letterIndex % 2 !== 0"
+            [class.error]="letterIndex === wordLength - 1"
+          >
+            {{ (rowIndex | wordleExtractWord)?.[letterIndex]?.letter }}
+          </div>
+        </div>
       </div>
     </div>
   </div>

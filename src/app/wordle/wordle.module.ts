@@ -5,6 +5,7 @@ import { CommonPipesModule } from '@common/pipes';
 import { WordleExtractWordPipe } from './pipes/wordle-extract-word.pipe';
 import { WordleCellIsFilledPipe } from './pipes/wordle-cell-is-filled.pipe';
 import { WordleCursorInCellPipe } from './pipes/wordle-cursor-in-cell.pipe';
+import { WordleRowCanFlipPipe } from './pipes/wordle-row-can-flip.pipe';
 
 @NgModule({
   imports: [CommonModule, CommonPipesModule],
@@ -13,6 +14,7 @@ import { WordleCursorInCellPipe } from './pipes/wordle-cursor-in-cell.pipe';
     WordleExtractWordPipe,
     WordleCellIsFilledPipe,
     WordleCursorInCellPipe,
+    WordleRowCanFlipPipe,
   ],
   exports: [WordleComponent],
   providers: [WordleExtractWordPipe],
