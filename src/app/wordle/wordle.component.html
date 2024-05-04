@@ -33,6 +33,7 @@
       <div
         class="wordle-key"
         [class.wide]="key === 'Backspace' || key === 'Enter'"
+        (click)="handleKey(key)"
         *ngFor="let key of row"
       >
         {{ key === "Backspace" ? "⌫" : key }}

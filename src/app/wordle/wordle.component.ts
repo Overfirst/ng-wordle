@@ -48,6 +48,10 @@ export class WordleComponent implements OnInit, OnDestroy {
     this.wordle.initSubscriptions().pipe(untilDestroyed(this)).subscribe();
   }
 
+  public handleKey(key: string): void {
+    this.wordle.handleKey(key);
+  }
+
   public ngOnDestroy(): void {
     this.wordleState.destroy();
   }

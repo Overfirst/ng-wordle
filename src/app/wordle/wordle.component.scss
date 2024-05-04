@@ -111,6 +111,7 @@ $wordle-cell-size: 64px;
 $wordle-cell-size-small: 32px;
 
 $wordle-cell-base-color: #f3ff95;
+$wordle-cell-base-hover-color: #e2f92c;
 $wordle-cell-green-color: #4aff73;
 $wordle-cell-orange-color: #ffa626;
 $wordle-cell-gray-color: #bdbdbd;
@@ -211,6 +212,11 @@ $wordle-cell-font-size-small: 20px;
   padding: 2px;
   text-transform: capitalize;
   user-select: none;
+  transition: all 0.15s;
+
+  &:hover {
+    background-color: $wordle-cell-base-hover-color;
+  }
 
   &.wide {
     flex: 2 1;

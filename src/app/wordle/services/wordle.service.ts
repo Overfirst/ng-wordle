@@ -16,6 +16,21 @@ export class WordleService {
     return merge(this.listenKeyboard(), this.listenWordLengthChanges());
   }
 
+  public handleKey(key: string): void {
+    switch (key) {
+      case 'Backspace':
+        this.handleBackspace();
+        break;
+
+      case 'Enter':
+        this.handleEnter();
+        break;
+
+      default:
+        this.handleLetterKey(key);
+    }
+  }
+
   private listenKeyboard(): Observable<unknown> {
     return fromEvent<KeyboardEvent>(this.document, 'keydown').pipe(
       map((event: KeyboardEvent) => event.key),
@@ -33,21 +48,6 @@ export class WordleService {
 
   private listenWordLengthChanges(): Observable<unknown> {
     return of(null);
-  }
-
-  private handleKey(key: string): void {
-    switch (key) {
-      case 'Backspace':
-        this.handleBackspace();
-        break;
-
-      case 'Enter':
-        this.handleEnter();
-        break;
-
-      default:
-        this.handleLetterKey(key);
-    }
   }
 
   private handleBackspace(): void {
