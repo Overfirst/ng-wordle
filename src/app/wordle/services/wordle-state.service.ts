@@ -18,7 +18,7 @@ export class WordleStateService implements OnDestroy {
 
   /* Длина загаданного слова */
   private readonly wordLength$$: BehaviorSubject<number> =
-    new BehaviorSubject<number>(5);
+    new BehaviorSubject<number>(this.defaultWordLength);
 
   public readonly wordLength$: Observable<number> =
     this.wordLength$$.asObservable();
