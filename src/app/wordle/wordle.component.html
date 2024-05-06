@@ -50,6 +50,9 @@
         (click)="handleKey(key)"
         class="wordle-key"
         [class.wide]="key | wordleKeyIsWide"
+        [class.valid]="key | wordleKeyCheckType: 'valid'"
+        [class.invalid]="key | wordleKeyCheckType: 'invalid'"
+        [class.error]="key | wordleKeyCheckType: 'error'"
       >
         {{ key | wordleExtractKey }}
       </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   WordleGameState,
+  WordleKeyboardKeyType,
   WordleWord,
   WordleWordLetterRepeats,
 } from '../model/wordle.model';
@@ -12,7 +13,7 @@ export class WordleStateService {
   public readonly attemptsCount: number = 6;
 
   /* Длина слова по умолчанию */
-  public readonly defaultWordLength: number = 5;
+  public readonly defaultWordLength: number = 11;
 
   /* Минимальная длина слова */
   public readonly minWordLength: number = 4;
@@ -25,6 +26,11 @@ export class WordleStateService {
 
   /* Задержка после разворота всех букв */
   public readonly afterWordOpenDelay: number = 500;
+
+  /* Задержка перед раскрытием букв на клавиатуре */
+  public get updateGameStateDelay(): number {
+    return this.letterFlipDelay * this.wordLength + this.afterWordOpenDelay;
+  }
 
   /* Состояние игры */
   private readonly gameState$$: BehaviorSubject<WordleGameState> =
@@ -99,6 +105,20 @@ export class WordleStateService {
 
   public set wordRows(rows: WordleWord[]) {
     this.wordRows$$.next(rows);
+  }
+
+  private wordleKeyboardKeyTypes$$ = new BehaviorSubject<WordleKeyboardKeyType>(
+    {},
+  );
+
+  public wordleKeyboardKeyTypes$ = this.wordleKeyboardKeyTypes$$.asObservable();
+
+  public get wordleKeyboardKeyTypes(): WordleKeyboardKeyType {
+    return this.wordleKeyboardKeyTypes$$.getValue();
+  }
+
+  public set wordleKeyboardKeyTypes(types: WordleKeyboardKeyType) {
+    this.wordleKeyboardKeyTypes$$.next(types);
   }
 
   public wordleWordLetterRepeats: WordleWordLetterRepeats = {};

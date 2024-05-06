@@ -239,6 +239,24 @@ $wordle-cell-font-size-small: 20px;
     transform: scale(0.95);
   }
 
+  &.valid,
+  &.invalid,
+  &.error {
+    color: #fff;
+  }
+
+  &.valid {
+    background: $wordle-cell-valid-color;
+  }
+
+  &.invalid {
+    background: $wordle-cell-invalid-color;
+  }
+
+  &.error {
+    background: $wordle-cell-error-color;
+  }
+
   &.wide {
     flex: 2 1;
   }

@@ -3,12 +3,7 @@ import { filter, fromEvent, map, merge, Observable, tap } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import random from 'random';
 import { WordleStateService } from './wordle-state.service';
-import {
-  WordleLetter,
-  WordleWord,
-  WordleWordCollection,
-  WordleWordLetterRepeats,
-} from '../model/wordle.model';
+import { WordleLetter, WordleWordLetterRepeats } from '../model/wordle.model';
 import { WORDLE_WORD_COLLECTION } from '../const/wordle-collection.const';
 
 @Injectable()
@@ -100,6 +95,7 @@ export class WordleService {
 
     if (inputEqualSecretLength) {
       this.calculateLetterTypeForInputWord();
+      this.calculateKeyboardKeyTypes();
 
       if (rowsLengthAllowed) {
         this.wordleState.wordRows = [
@@ -166,5 +162,17 @@ export class WordleService {
         }
       }
     });
+  }
+
+  private calculateKeyboardKeyTypes(): void {
+    this.wordleState.inputWord.forEach((letter: WordleLetter) => {
+      if (this.wordleState.wordleKeyboardKeyTypes[letter.letter] !== 'valid') {
+        this.wordleState.wordleKeyboardKeyTypes[letter.letter] = letter.type;
+      }
+    });
+
+    this.wordleState.wordleKeyboardKeyTypes = {
+      ...this.wordleState.wordleKeyboardKeyTypes,
+    };
   }
 }
