@@ -14,29 +14,29 @@
         "
         class="wordle-cell"
         [class.cursor]="rowIndex | wordleCursorInCell: letterIndex"
-        [class.flipped]="rowIndex | wordleRowCanFlip"
       >
         <div
           class="wordle-cell-content"
           *ngIf="{
-            word: (rowIndex | wordleExtractWord)?.[letterIndex]
+            letter: (rowIndex | wordleExtractLetter: letterIndex)
           } as params"
           [class.filled]="rowIndex | wordleCellIsFilled: letterIndex"
+          [class.flipped]="rowIndex | wordleRowCanFlip"
           [style.animation-delay]="
-            (rowIndex | wordleRowCanFlip) ? 200 * letterIndex + 'ms' : '0ms'
+            rowIndex | wordleExtractAnimationDelay: letterIndex
           "
         >
           <div class="wordle-cell-front">
-            {{ params.word?.letter }}
+            {{ params.letter?.letter }}
           </div>
 
           <div
             class="wordle-cell-back"
-            [class.valid]=""
-            [class.invalid]=""
-            [class.error]=""
+            [class.valid]="params.letter?.type === 'valid'"
+            [class.invalid]="params.letter?.type === 'invalid'"
+            [class.error]="params.letter?.type === 'error'"
           >
-            {{ params.word?.letter }}
+            {{ params.letter?.letter }}
           </div>
         </div>
       </div>

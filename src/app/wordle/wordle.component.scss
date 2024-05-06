@@ -114,6 +114,11 @@ $wordle-cell-font-size-small: 20px;
       animation-duration: 0.3s;
       border: 2px solid $wordle-cell-border-color-filled;
     }
+
+    &.flipped {
+      animation: cell-flipped forwards;
+      animation-duration: 1s;
+    }
   }
 
   &-front,
@@ -150,11 +155,6 @@ $wordle-cell-font-size-small: 20px;
       background: $wordle-cell-error-color;
       color: #fff;
     }
-  }
-
-  &.flipped &-content {
-    animation: cell-flipped forwards;
-    animation-duration: 1s;
   }
 }
 

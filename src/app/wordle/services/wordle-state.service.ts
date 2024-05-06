@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { WordleGameState, WordleWord } from '../model/wordle.model';
+import {
+  WordleGameState,
+  WordleWord,
+  WordleWordLetterRepeats,
+} from '../model/wordle.model';
 
 @Injectable()
 export class WordleStateService {
@@ -15,6 +19,12 @@ export class WordleStateService {
 
   /* Максимальная длина слова */
   public readonly maxWordLength: number = 11;
+
+  /* Задержка при развороте букв */
+  public readonly letterFlipDelay: number = 200;
+
+  /* Задержка после разворота всех букв */
+  public readonly afterWordOpenDelay: number = 500;
 
   /* Состояние игры */
   private readonly gameState$$: BehaviorSubject<WordleGameState> =
@@ -90,6 +100,8 @@ export class WordleStateService {
   public set wordRows(rows: WordleWord[]) {
     this.wordRows$$.next(rows);
   }
+
+  public wordleWordLetterRepeats: WordleWordLetterRepeats = {};
 
   public destroy(): void {
     this.gameState$$.complete();

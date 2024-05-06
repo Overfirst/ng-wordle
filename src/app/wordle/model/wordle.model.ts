@@ -36,3 +36,7 @@ export type WordleKeyboard = string[][];
     - lose: поражение
 */
 export type WordleGameState = 'waiting' | 'playing' | 'win' | 'lose';
+
+export interface WordleWordLetterRepeats {
+  [key: string]: number;
+}

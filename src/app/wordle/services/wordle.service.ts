@@ -3,7 +3,12 @@ import { filter, fromEvent, map, merge, Observable, tap } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import random from 'random';
 import { WordleStateService } from './wordle-state.service';
-import { WordleLetter } from '../model/wordle.model';
+import {
+  WordleLetter,
+  WordleWord,
+  WordleWordCollection,
+  WordleWordLetterRepeats,
+} from '../model/wordle.model';
 import { WORDLE_WORD_COLLECTION } from '../const/wordle-collection.const';
 
 @Injectable()
@@ -46,7 +51,18 @@ export class WordleService {
 
     this.wordleState.secretWord = words[randomWordIndex];
 
-    console.log(this.wordleState.secretWord);
+    this.wordleState.wordleWordLetterRepeats = this.wordleState.secretWord
+      .split('')
+      .reduce((acc: WordleWordLetterRepeats, letter: string) => {
+        if (!acc[letter]) {
+          acc[letter] = 0;
+        }
+
+        acc[letter]++;
+        return acc;
+      }, {});
+
+    console.log({ secretWord: this.wordleState.secretWord });
   }
 
   private listenKeyboard(): Observable<unknown> {
@@ -82,13 +98,17 @@ export class WordleService {
     const rowsLengthAllowed: boolean =
       this.wordleState.wordRows.length < this.wordleState.attemptsCount;
 
-    if (inputEqualSecretLength && rowsLengthAllowed) {
-      this.wordleState.wordRows = [
-        ...this.wordleState.wordRows,
-        this.wordleState.inputWord,
-      ];
+    if (inputEqualSecretLength) {
+      this.calculateLetterTypeForInputWord();
 
-      this.wordleState.inputWord = [];
+      if (rowsLengthAllowed) {
+        this.wordleState.wordRows = [
+          ...this.wordleState.wordRows,
+          this.wordleState.inputWord,
+        ];
+
+        this.wordleState.inputWord = [];
+      }
     }
   }
 
@@ -105,5 +125,46 @@ export class WordleService {
 
       this.wordleState.inputWord = [...this.wordleState.inputWord, newLetter];
     }
+  }
+
+  private calculateLetterTypeForInputWord(): void {
+    const letterCountByValid: { [key: string]: number } = {};
+    const letterCountByInvalid: { [key: string]: number } = {};
+
+    const { inputWord, secretWord, wordleWordLetterRepeats } = this.wordleState;
+
+    inputWord.forEach((letter: WordleLetter) => {
+      if (secretWord[letter.index] === letter.letter) {
+        if (!letterCountByValid[letter.letter]) {
+          letterCountByValid[letter.letter] = 0;
+        }
+
+        letter.type = 'valid';
+        letterCountByValid[letter.letter]++;
+      }
+
+      if (secretWord.indexOf(letter.letter) === -1) {
+        letter.type = 'error';
+      }
+    });
+
+    inputWord.forEach((letter: WordleLetter) => {
+      if (letter.type === 'unknown') {
+        if (!letterCountByInvalid[letter.letter]) {
+          letterCountByInvalid[letter.letter] = 0;
+        }
+
+        const maxHasbutCount =
+          wordleWordLetterRepeats[letter.letter] -
+          (letterCountByValid[letter.letter] ?? 0);
+
+        if (letterCountByInvalid[letter.letter] < maxHasbutCount) {
+          letter.type = 'invalid';
+          letterCountByInvalid[letter.letter]++;
+        } else {
+          letter.type = 'error';
+        }
+      }
+    });
   }
 }
