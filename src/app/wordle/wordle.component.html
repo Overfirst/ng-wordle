@@ -49,9 +49,9 @@
         *ngFor="let key of row"
         (click)="handleKey(key)"
         class="wordle-key"
-        [class.wide]="key === 'Backspace' || key === 'Enter'"
+        [class.wide]="key | wordleKeyIsWide"
       >
-        {{ key === "Backspace" ? "⌫" : key }}
+        {{ key | wordleExtractKey }}
       </div>
     </div>
   </div>
