@@ -37,6 +37,7 @@ export class WordleService {
     this.wordleState.gameState = 'waiting';
     this.wordleState.wordRows = [];
     this.wordleState.inputWord = [];
+    this.wordleState.wordleKeyboardKeyTypes = {};
     this.selectSecretWord();
   }
 
