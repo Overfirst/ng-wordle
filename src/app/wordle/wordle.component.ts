@@ -32,6 +32,10 @@ export class WordleComponent implements OnInit, OnDestroy {
   /* Клавиатура */
   public readonly WORDLE_KEYBOARD: WordleKeyboard = WORDLE_KEYBOARD;
 
+  public readonly minWordLength: number = this.wordleState.minWordLength;
+
+  public readonly maxWordLength: number = this.wordleState.maxWordLength;
+
   constructor(
     private readonly wordleState: WordleStateService,
     private readonly wordle: WordleService,
@@ -49,6 +53,10 @@ export class WordleComponent implements OnInit, OnDestroy {
 
   public handleKey(key: string): void {
     this.wordle.handleKey(key);
+  }
+
+  public selectWordLength(length: number): void {
+    this.wordle.selectWordLength(length);
   }
 
   public ngOnDestroy(): void {

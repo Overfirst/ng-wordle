@@ -1,8 +1,22 @@
-<script src="services/wordle.service.ts"></script>
-<div class="wordle">
+<div class="wordle" *ngIf="wordLength$ | async as wordLength">
   <div class="wordle-title">Wordle</div>
 
-  <div class="wordle-cells" *ngIf="wordLength$ | async as wordLength">
+  <div class="wordle-length-select">
+    <ng-container
+      *ngFor="let n of maxWordLength - minWordLength + 1 | arrayFromNumber"
+    >
+      <div
+        *ngIf="n + minWordLength as length"
+        class="wordle-length-cell"
+        [class.selected]="wordLength === length"
+        (click)="selectWordLength(length)"
+      >
+        {{ length }}
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="wordle-cells">
     <div
       class="wordle-row"
       *ngFor="let row of attemptsCount | arrayFromNumber; let rowIndex = index"

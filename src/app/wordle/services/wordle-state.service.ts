@@ -13,7 +13,7 @@ export class WordleStateService {
   public readonly attemptsCount: number = 6;
 
   /* Длина слова по умолчанию */
-  public readonly defaultWordLength: number = 11;
+  public readonly defaultWordLength: number = 5;
 
   /* Минимальная длина слова */
   public readonly minWordLength: number = 4;

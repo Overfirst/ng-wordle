@@ -33,6 +33,12 @@ export class WordleService {
     }
   }
 
+  public selectWordLength(length: number): void {
+    if (this.wordleState.wordLength !== length) {
+      this.wordleState.wordLength = length;
+    }
+  }
+
   private reset(): void {
     this.wordleState.gameState = 'waiting';
     this.wordleState.wordRows = [];

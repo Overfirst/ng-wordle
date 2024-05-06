@@ -1,10 +1,16 @@
 $wordle-cell-size: 64px;
-$wordle-cell-size-small: 32px;
+$wordle-cell-size-small: 42px;
 
 $wordle-cell-base-color: linear-gradient(
   356deg,
   rgb(255 232 161) 0%,
   rgb(255, 239, 80) 100%
+);
+
+$wordle-cell-base-hover-color: linear-gradient(
+  356deg,
+  rgb(255, 230, 153) 0%,
+  rgb(255, 237, 50) 100%
 );
 
 $wordle-cell-valid-color: linear-gradient(
@@ -259,5 +265,36 @@ $wordle-cell-font-size-small: 20px;
 
   &.wide {
     flex: 2 1;
+  }
+}
+
+.wordle-length-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.wordle-length-cell {
+  display: flex;
+  width: $wordle-cell-size-small;
+  height: $wordle-cell-size-small;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6%;
+  background: $wordle-cell-base-color;
+  margin: 4px;
+  border: 2px solid $wordle-cell-border-color;
+  transition: all 0.15s;
+  cursor: pointer;
+
+  &:hover:not(&.selected) {
+    background: $wordle-cell-base-hover-color;
+  }
+
+  &.selected {
+    border: 2px solid $wordle-cell-border-color;
+    background: $wordle-cell-base-hover-color;
+    cursor: default;
   }
 }
