@@ -12,6 +12,7 @@ import { WordleExtractAnimationDelayPipe } from './pipes/wordle-extract-animatio
 import { WordleKeyIsWidePipe } from './pipes/wordle-key-is-wide.pipe';
 import { WordleExtractKeyPipe } from './pipes/wordle-extract-key.pipe';
 import { WordleKeyCheckTypePipe } from './pipes/wordle-key-check-type.pipe';
+import { WordleCheckWordExistsPipe } from './pipes/wordle-check-word-exists.pipe';
 
 @NgModule({
   imports: [CommonModule, CommonPipesModule],
@@ -26,6 +27,7 @@ import { WordleKeyCheckTypePipe } from './pipes/wordle-key-check-type.pipe';
     WordleKeyIsWidePipe,
     WordleExtractKeyPipe,
     WordleKeyCheckTypePipe,
+    WordleCheckWordExistsPipe,
   ],
   exports: [WordleComponent],
   providers: [WordleExtractWordPipe, WordleRowCanFlipPipe],

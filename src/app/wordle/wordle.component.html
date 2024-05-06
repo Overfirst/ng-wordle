@@ -54,6 +54,10 @@
           </div>
         </div>
       </div>
+
+      <div class="wordle-word-hint" *ngIf="!(rowIndex | wordleCheckWordExists)">
+        Такого слова нет!
+      </div>
     </div>
   </div>
 

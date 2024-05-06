@@ -71,12 +71,19 @@ $wordle-cell-font-size-small: 20px;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
+  position: relative;
 
   &.error {
     animation-delay: 0ms;
     animation: row-error linear;
     animation-duration: 0.15s;
   }
+}
+
+.wordle-word-hint {
+  top: 33%;
+  position: absolute;
+  right: -160px;
 }
 
 .wordle-cell {
