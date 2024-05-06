@@ -3,8 +3,8 @@ $wordle-cell-size-small: 32px;
 
 $wordle-cell-base-color: linear-gradient(
   356deg,
-  rgb(255 222 121) 0%,
-  rgb(255 239 80) 100%
+  rgb(255 232 161) 0%,
+  rgb(255, 239, 80) 100%
 );
 
 $wordle-cell-valid-color: linear-gradient(
@@ -106,6 +106,7 @@ $wordle-cell-font-size-small: 20px;
     transform-style: preserve-3d;
     border: 2px solid $wordle-cell-border-color;
     border-radius: 10%;
+    box-sizing: border-box;
 
     &.filled {
       animation-delay: 0ms;

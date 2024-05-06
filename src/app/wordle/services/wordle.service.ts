@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { filter, fromEvent, map, merge, Observable, of, tap } from 'rxjs';
+import { filter, fromEvent, map, merge, Observable, tap } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import random from 'random';
 import { WordleStateService } from './wordle-state.service';
@@ -80,7 +80,7 @@ export class WordleService {
       this.wordleState.inputWord.length === this.wordleState.secretWord.length;
 
     const rowsLengthAllowed: boolean =
-      this.wordleState.wordRows.length < this.wordleState.attemptsCount - 1;
+      this.wordleState.wordRows.length < this.wordleState.attemptsCount;
 
     if (inputEqualSecretLength && rowsLengthAllowed) {
       this.wordleState.wordRows = [
