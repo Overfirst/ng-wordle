@@ -83,7 +83,8 @@ $wordle-cell-font-size-small: 20px;
 .wordle-word-hint {
   top: 33%;
   position: absolute;
-  right: -160px;
+  right: -179px;
+  font-size: 18px;
   animation: wordle-hint-show forwards;
   animation-duration: 0.15s;
 }
