@@ -84,6 +84,24 @@ $wordle-cell-font-size-small: 20px;
   top: 33%;
   position: absolute;
   right: -160px;
+  animation: wordle-hint-show forwards;
+  animation-duration: 0.15s;
+}
+
+@keyframes wordle-hint-show {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .wordle-cell {
